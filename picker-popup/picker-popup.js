@@ -7,6 +7,7 @@
     },
     ready: function() {
       this.listenEvent = 'click';
+      this.showTime = true;
       if (bowser.ios) {
         this.listenEvent = 'touchstart';
       }

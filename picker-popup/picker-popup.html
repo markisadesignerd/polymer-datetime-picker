@@ -1,35 +1,32 @@
-<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../calendar-picker/calendar-picker.html">
 <link rel="import" href="../time-picker/time-picker.html">
-<link rel="import" href="../../core-input/core-input.html">
-<link rel="import" href="../../paper-button/paper-button.html">
-<link rel="import" href="../../paper-ripple/paper-ripple.html">
+<link rel="import" href="../core-input/core-input.html">
+<link rel="import" href="../core-header-panel/core-header-panel.html">
+<link rel="import" href="../core-toolbar/core-toolbar.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
 
-<polymer-element name="picker-popup" attributes='selectedDate inputTop inputLeft'>
+<polymer-element name="picker-popup" attributes='selectedDate inputTop inputLeft showTime'>
   <template>
     <link href="picker-popup.css" rel="stylesheet">
-
-    <div vertical layout style='height:100%'>
-      <div flex on-calendar-shown='{{showCalendarChanged}}'>
-        <calendar-picker id='calendar' 
+    <div vertical layout>
+      <time-picker 
+        selectedDate='{{selectedDate}}'
+        on-new-time-str='{{setTimeStr}}'
+        hidden?='{{showTime}}'>
+      </time-picker>
+      <calendar-picker id='calendar' 
           selectedDate='{{selectedDate}}'
           on-new-date-str='{{setDateStr}}'
           hidden?='{{!showCalendar}}'>
-        </calendar-picker>
-        <time-picker 
-          selectedDate='{{selectedDate}}'
-          on-new-time-str='{{setTimeStr}}'
-          hidden?='{{showCalendar}}'>
-        </time-picker>
-      </div>
-      <div>
-        <div horizontal layout center-justified style='padding-top:10px'>
-          <div>
-            <paper-button raisedButton on-tap="{{toggleShowCalendar}}" label="{{bottomLabel}}" tabindex='0'>
-            </paper-button>
-          </div>
-        </div>
-      </div>
+      </calendar-picker>
+      <core-toolbar 
+        hidden?='{{showCalendar}}'
+        on-calendar-shown='{{showCalendarChanged}}'>
+        <paper-button raisedButton on-tap="{{toggleShowCalendar}}" label="{{bottomLabel}}" tabindex='0'>
+        </paper-button>
+      </core-toolbar>
     </div>
   </template>
   <script type="text/javascript" src='picker-popup.js'></script>
